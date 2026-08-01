@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ruan Game Store — Contas Blox Fruits</title>
+<meta name="description" content="Contas de Blox Fruits a partir de R$ 0,30. God Human, frutas míticas, raças V4. Pagamento via Pix, entrega rápida no WhatsApp ou Discord.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0a0f0d;
+    --bg-2: #0d1512;
+    --panel: #101a16;
+    --panel-2: #0d1613;
+    --border: #1c2b24;
+    --border-soft: #16211c;
+    --green: #39ff8c;
+    --green-dim: #1f7a48;
+    --green-glow: rgba(57,255,140,0.35);
+    --white: #f2f7f4;
+    --muted: #8fa39a;
+    --muted-2: #5f7369;
+    --myth: #ff5f7e;
+    --legend: #b98aff;
+    --rare: #ffd166;
+    --pix: #2fd9c4;
+    --radius: 14px;
+  }
+
+  *{ box-sizing: border-box; margin:0; padding:0; }
+
+  html{ scroll-behavior: smooth; }
+
+  body{
+    background: var(--bg);
+    background-image:
+      radial-gradient(circle at 15% 0%, rgba(57,255,140,0.07), transparent 45%),
+      radial-gradient(circle at 85% 15%, rgba(185,138,255,0.05), transparent 40%);
+    color: var(--white);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,h2,h3, .display{
+    font-family: 'Chakra Petch', sans-serif;
+    letter-spacing: 0.01em;
+  }
+
+  .mono{ font-family: 'JetBrains Mono', monospace; }
+
+  a{ color: inherit; text-decoration: none; }
+
+  img, svg{ display:block; }
+
+  .wrap{
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ---------- focus ---------- */
+  a:focus-visible, button:focus-visible{
+    outline: 2px solid var(--green);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+  }
+
+  /* ---------- header ---------- */
+  header{
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(10,15,13,0.85);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .nav{
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    padding: 16px 24px;
+  }
+  .logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-family:'Chakra Petch', sans-serif;
+    font-weight:700;
+    font-size: 1.15rem;
+    letter-spacing: 0.02em;
+  }
+  .logo-mark{
+    width: 34px; height:34px;
+    border-radius: 9px;
+    background: linear-gradient(135deg, var(--green), var(--green-dim));
+    display:flex; align-items:center; justify-content:center;
+    color:#04150c;
+    font-weight:700;
+    box-shadow: 0 0 22px var(--green-glow);
+    transform: rotate(45deg);
+    flex-shrink:0;
+  }
+  .logo-mark span{ transform: rotate(-45deg); font-size: 1rem; }
+
+  nav.links{
+    display:flex;
+    gap: 28px;
+    font-size: 0.92rem;
+    color: var(--muted);
+  }
+  nav.links a:hover{ color: var(--white); }
+
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding: 11px 20px;
+    border-radius: 999px;
+    font-weight:600;
+    font-size: 0.9rem;
+    border: 1px solid transparent;
+    transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+    cursor:pointer;
+    white-space: nowrap;
+  }
+  .btn-primary{
+    background: var(--green);
+    color: #04150c;
+    box-shadow: 0 0 0 rgba(57,255,140,0);
+  }
+  .btn-primary:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px var(--green-glow);
+  }
+  .btn-ghost{
+    border-color: var(--border);
+    color: var(--white);
+    background: transparent;
+  }
+  .btn-ghost:hover{ border-color: var(--green-dim); background: rgba(57,255,140,0.06); }
+
+  .nav-toggle{ display:none; }
+
+  /* ---------- hero ---------- */
+  .hero{
+    padding: 76px 0 60px;
+    position: relative;
+  }
+  .eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-family:'JetBrains Mono', monospace;
+    font-size: 0.76rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--green);
+    background: rgba(57,255,140,0.08);
+    border: 1px solid var(--green-dim);
+    padding: 6px 12px;
+    border-radius: 999px;
+    margin-bottom: 22px;
+  }
+  .dot{
+    width:6px; height:6px; border-radius:50%;
+    background: var(--green);
+    box-shadow: 0 0 8px var(--green);
+    animation: pulse 1.8s ease-in-out infinite;
+  }
+  @keyframes pulse{ 0%,100%{ opacity:1; } 50%{ opacity:0.35; } }
+
+  .hero h1{
+    font-size: clamp(2.1rem, 5vw, 3.4rem);
+    font-weight: 700;
+    line-height: 1.08;
+    max-width: 780px;
+  }
+  .hero h1 em{
+    font-style: normal;
+    color: var(--green);
+    text-shadow: 0 0 30px var(--green-glow);
+  }
+  .hero p.lead{
+    margin-top: 20px;
+    color: var(--muted);
+    font-size: 1.05rem;
+    max-width: 560px;
+  }
+
+  .hero-ctas{
+    display:flex;
+    gap: 14px;
+    margin-top: 32px;
+    flex-wrap: wrap;
+  }
+
+  .trust-list{
+    margin-top: 44px;
+    display:flex;
+    flex-direction:column;
+    gap: 12px;
+    max-width: 560px;
+  }
+  .trust-item{
+    display:flex;
+    align-items:flex-start;
+    gap: 12px;
+    font-size: 0.95rem;
+    color: var(--white);
+  }
+  .check{
+    flex-shrink:0;
+    width: 22px; height:22px;
+    border-radius: 7px;
+    background: var(--green-dim);
+    display:flex; align-items:center; justify-content:center;
+    margin-top: 1px;
+  }
+  .check svg{ width:13px; height:13px; }
+
+  /* ---------- steps ---------- */
+  .section{ padding: 64px 0; border-top: 1px solid var(--border-soft); }
+  .section-head{ margin-bottom: 40px; max-width: 620px; }
+  .section-head .eyebrow{ margin-bottom: 14px; }
+  .section-head h2{ font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight:700; }
+  .section-head p{ color: var(--muted); margin-top: 12px; }
+
+  .steps{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .step{
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 26px;
+    position: relative;
+  }
+  .step-num{
+    font-family:'JetBrains Mono', monospace;
+    color: var(--green);
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+  }
+  .step h3{ margin-top: 14px; font-size: 1.05rem; font-weight:600; }
+  .step p{ margin-top: 8px; color: var(--muted); font-size: 0.9rem; }
+
+  /* ---------- pricing ---------- */
+  .price-note{
+    display:flex;
+    flex-wrap:wrap;
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+  .pill{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding: 9px 14px;
+    border-radius: 999px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    font-size: 0.84rem;
+    color: var(--muted);
+  }
+  .pill b{ color: var(--white); }
+  .pill.pix{ border-color: rgba(47,217,196,0.4); color: var(--pix); }
+  .pill.pix b{ color: var(--pix); }
+
+  .grid-cards{
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .card{
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px;
+    display:flex;
+    flex-direction: column;
+    gap: 14px;
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity .5s ease, transform .5s ease, border-color .2s ease;
+  }
+  .card.in-view{ opacity:1; transform: translateY(0); }
+  .card:hover{ border-color: var(--green-dim); }
+
+  .card-top{ display:flex; align-items:flex-start; justify-content: space-between; gap: 12px; }
+
+  .diamond{
+    width: 30px; height: 30px;
+    flex-shrink:0;
+    transform: rotate(45deg);
+    border-radius: 6px;
+    display:flex; align-items:center; justify-content:center;
+    position: relative;
+  }
+  .diamond::after{
+    content:'';
+    position:absolute; inset:0;
+    border-radius: 6px;
+    animation: spin-glow 3.5s linear infinite;
+  }
+  @keyframes spin-glow{
+    0%{ box-shadow: 0 0 0 rgba(255,255,255,0); }
+    50%{ box-shadow: 0 0 14px currentColor; }
+    100%{ box-shadow: 0 0 0 rgba(255,255,255,0); }
+  }
+  .diamond.myth{ background: linear-gradient(135deg, var(--myth), #7a1f36); color: var(--myth); }
+  .diamond.legend{ background: linear-gradient(135deg, var(--legend), #4a2b7a); color: var(--legend); }
+  .diamond.rare{ background: linear-gradient(135deg, var(--rare), #7a5a12); color: var(--rare); }
+  .diamond.random{ background: linear-gradient(135deg, var(--green), var(--green-dim)); color: var(--green); }
+
+  .tag{
+    font-family:'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 4px 9px;
+    border-radius: 999px;
+    white-space:nowrap;
+  }
+  .tag.myth{ background: rgba(255,95,126,0.12); color: var(--myth); border: 1px solid rgba(255,95,126,0.35); }
+  .tag.legend{ background: rgba(185,138,255,0.12); color: var(--legend); border: 1px solid rgba(185,138,255,0.35); }
+  .tag.rare{ background: rgba(255,209,102,0.12); color: var(--rare); border: 1px solid rgba(255,209,102,0.35); }
+  .tag.random{ background: rgba(57,255,140,0.12); color: var(--green); border: 1px solid rgba(57,255,140,0.35); }
+
+  .card h3{
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.35;
+  }
+
+  .card-price{
+    margin-top: auto;
+    display:flex;
+    align-items: baseline;
+    justify-content: space-between;
+  }
+  .price{
+    font-family:'Chakra Petch', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--green);
+  }
+  .buy-link{
+    font-size: 0.82rem;
+    color: var(--muted);
+    display:flex; align-items:center; gap:5px;
+  }
+  .buy-link:hover{ color: var(--green); }
+
+  .highlight-row{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 16px;
+  }
+  .highlight{
+    border-radius: var(--radius);
+    padding: 24px;
+    border: 1px solid var(--border);
+    background: var(--panel-2);
+  }
+  .highlight.random{
+    background: linear-gradient(135deg, rgba(57,255,140,0.08), transparent);
+    border-color: var(--green-dim);
+  }
+  .highlight h3{ font-size: 1.05rem; font-weight:600; margin-bottom: 6px; }
+  .highlight p{ color: var(--muted); font-size: 0.88rem; }
+  .highlight .price{ margin-top: 12px; display:block; }
+
+  /* ---------- how it works footer CTA ---------- */
+  .cta-band{
+    border-radius: 20px;
+    background: linear-gradient(135deg, rgba(57,255,140,0.1), rgba(10,15,13,0.4));
+    border: 1px solid var(--green-dim);
+    padding: 44px;
+    text-align:center;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap: 18px;
+  }
+  .cta-band h2{ font-size: clamp(1.4rem, 3vw, 2rem); }
+  .cta-band p{ color: var(--muted); max-width: 480px; }
+  .cta-band .hero-ctas{ margin-top: 4px; }
+
+  /* ---------- footer ---------- */
+  footer{
+    border-top: 1px solid var(--border-soft);
+    padding: 40px 0 30px;
+  }
+  .foot-grid{
+    display:flex;
+    justify-content: space-between;
+    align-items:flex-start;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+  .foot-brand{ display:flex; align-items:center; gap:10px; font-family:'Chakra Petch', sans-serif; font-weight:700; }
+  .foot-contacts{ display:flex; gap: 22px; font-size: 0.88rem; color: var(--muted); flex-wrap: wrap; }
+  .foot-contacts a:hover{ color: var(--green); }
+  .foot-note{ margin-top: 24px; font-size: 0.78rem; color: var(--muted-2); }
+
+  /* ---------- responsive ---------- */
+  @media (max-width: 760px){
+    nav.links, .nav .btn-ghost{ display:none; }
+    .steps{ grid-template-columns: 1fr; }
+    .grid-cards{ grid-template-columns: 1fr; }
+    .highlight-row{ grid-template-columns: 1fr; }
+    .cta-band{ padding: 30px 22px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav wrap">
+    <div class="logo">
+      <div class="logo-mark"><span>◆</span></div>
+      RUAN GAME STORE
+    </div>
+    <nav class="links">
+      <a href="#inicio">Início</a>
+      <a href="#contas">Contas</a>
+      <a href="#como-comprar">Como comprar</a>
+      <a href="#contato">Contato</a>
+    </nav>
+    <a class="btn btn-primary" href="https://wa.me/558695533794" target="_blank" rel="noopener">Chamar no WhatsApp</a>
+  </div>
+</header>
+
+<main>
+
+  <section id="inicio" class="hero">
+    <div class="wrap">
+      <span class="eyebrow"><span class="dot"></span> Blox Fruits · Contas prontas</span>
+      <h1>Contas Blox Fruits com <em>God Human</em>, frutas raras e level máximo.</h1>
+      <p class="lead">A Ruan Game Store vende contas prontas pra você entrar jogando forte — sem grind, sem enrolação. Pagamento só no Pix, entrega combinada no WhatsApp ou Discord.</p>
+
+      <div class="hero-ctas">
+        <a class="btn btn-primary" href="https://wa.me/558695533794" target="_blank" rel="noopener">💬 Chamar no WhatsApp</a>
+        <a class="btn btn-ghost" href="https://discord.gg/aKWdrNXyY" target="_blank" rel="noopener">Entrar no Discord</a>
+      </div>
+
+      <div class="trust-list">
+        <div class="trust-item">
+          <span class="check"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#04150c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          Contas a partir de apenas <b>R$ 0,30</b>
+        </div>
+        <div class="trust-item">
+          <span class="check"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#04150c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          Contas com frutas míticas — quanto mais rara, maior o valor
+        </div>
+        <div class="trust-item">
+          <span class="check"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#04150c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          Pagamento 100% via <b>Pix</b>, entrega rápida
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="como-comprar" class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Como comprar</span>
+        <h2>Três passos e a conta é sua</h2>
+        <p>Sem site de pagamento, sem cadastro. Direto no WhatsApp ou Discord com o dono da loja.</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <span class="step-num">01 — ESCOLHER</span>
+          <h3>Escolhe a conta na lista</h3>
+          <p>Veja as opções fixas abaixo ou peça uma conta aleatória por R$ 0,30.</p>
+        </div>
+        <div class="step">
+          <span class="step-num">02 — CHAMAR</span>
+          <h3>Chama no WhatsApp ou Discord</h3>
+          <p>Manda o nome da conta que quiser e confirma disponibilidade.</p>
+        </div>
+        <div class="step">
+          <span class="step-num">03 — PIX E RECEBE</span>
+          <h3>Paga no Pix e recebe o acesso</h3>
+          <p>Depois da confirmação do pagamento, os dados da conta são enviados na hora.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contas" class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Catálogo</span>
+        <h2>Contas fixas disponíveis</h2>
+        <p>Preços variam pelo build e pela raridade da fruta. Quanto mais rara, maior o valor.</p>
+      </div>
+
+      <div class="price-note">
+        <span class="pill pix"><b>Pix</b> · única forma de pagamento</span>
+        <span class="pill">Entrega via <b>WhatsApp</b> ou <b>Discord</b></span>
+      </div>
+
+      <div class="grid-cards">
+        <div class="card">
+          <div class="card-top">
+            <div class="diamond myth">◆</div>
+            <span class="tag myth">Mítica</span>
+          </div>
+          <h3>GOD Humano + CDK</h3>
+          <div class="card-price">
+            <span class="price">R$ 4,50</span>
+            <a class="buy-link" href="https://wa.me/558695533794?text=Quero%20a%20conta%20GOD%20Humano%20%2B%20CDK" target="_blank" rel="noopener">Comprar →</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-top">
+            <div class="diamond myth">◆</div>
+            <span class="tag myth">Mítica</span>
+          </div>
+          <h3>GOD Humano + Level Máximo + TTK</h3>
+          <div class="card-price">
+            <span class="price">R$ 4,50</span>
+            <a class="buy-link" href="https://wa.me/558695533794?text=Quero%20a%20conta%20GOD%20Humano%20%2B%20Level%20M%C3%A1ximo%20%2B%20TTK" target="_blank" rel="noopener">Comprar →</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-top">
+            <div class="diamond legend">◆</div>
+            <span class="tag legend">Lendária</span>
+          </div>
+          <h3>Shark Anchor + GOD Humano + Level Máximo</h3>
+          <div class="card-price">
+            <span class="price">R$ 4,00</span>
+            <a class="buy-link" href="https://wa.me/558695533794?text=Quero%20a%20conta%20Shark%20Anchor%20%2B%20GOD%20Humano%20%2B%20Level%20M%C3%A1ximo" target="_blank" rel="noopener">Comprar →</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-top">
+            <div class="diamond legend">◆</div>
+            <span class="tag legend">Lendária</span>
+          </div>
+          <h3>Sanguine Art + GOD + Level Máximo</h3>
+          <div class="card-price">
+            <span class="price">R$ 2,80</span>
+            <a class="buy-link" href="https://wa.me/558695533794?text=Quero%20a%20conta%20Sanguine%20Art%20%2B%20GOD%20%2B%20Level%20M%C3%A1ximo" target="_blank" rel="noopener">Comprar →</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-top">
+            <div class="diamond rare">◆</div>
+            <span class="tag rare">Rara</span>
+          </div>
+          <h3>GOD + Dough V2 Full + Level Máximo</h3>
+          <div class="card-price">
+            <span class="price">R$ 2,00</span>
+            <a class="buy-link" href="https://wa.me/558695533794?text=Quero%20a%20conta%20GOD%20%2B%20Dough%20V2%20Full%20%2B%20Level%20M%C3%A1ximo" target="_blank" rel="noopener">Comprar →</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-top">
+            <div class="diamond rare">◆</div>
+            <span class="tag rare">Consultar</span>
+          </div>
+          <h3>Raças V4 — preço varia conforme a raça</h3>
+          <div class="card-price">
+            <span class="price mono" style="font-size:1.05rem;">Chamar p/ preço</span>
+            <a class="buy-link" href="https://wa.me/558695533794?text=Quero%20saber%20o%20pre%C3%A7o%20de%20uma%20conta%20Ra%C3%A7a%20V4" target="_blank" rel="noopener">Consultar →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="highlight-row">
+        <div class="highlight random">
+          <div class="diamond random" style="margin-bottom:10px;">◆</div>
+          <h3>Conta aleatória</h3>
+          <p>Não liga pra qual conta vem? Pega uma aleatória por um preço fixo, direto na sorte.</p>
+          <span class="price">R$ 0,30</span>
+        </div>
+        <div class="highlight">
+          <h3>Frutas míticas sob consulta</h3>
+          <p>Tem uma fruta mítica específica em mente? Chama no WhatsApp — o preço é definido pela raridade da fruta.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="cta-band">
+        <span class="eyebrow">Pronto pra jogar forte?</span>
+        <h2>Fala com a Ruan Game Store agora</h2>
+        <p>Manda mensagem, escolhe a conta e paga no Pix. Simples assim.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-primary" href="https://wa.me/558695533794" target="_blank" rel="noopener">💬 Chamar no WhatsApp</a>
+          <a class="btn btn-ghost" href="https://discord.gg/aKWdrNXyY" target="_blank" rel="noopener">Entrar no Discord</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer id="contato">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="logo-mark" style="width:28px;height:28px;"><span style="font-size:0.85rem;">◆</span></div>
+        RUAN GAME STORE
+      </div>
+      <div class="foot-contacts">
+        <a href="https://wa.me/558695533794" target="_blank" rel="noopener">WhatsApp: +55 86 9553-3794</a>
+        <a href="https://discord.gg/aKWdrNXyY" target="_blank" rel="noopener">Discord</a>
+      </div>
+    </div>
+    <p class="foot-note">Pagamento somente via Pix. Loja independente sem vínculo com a Roblox Corporation. Contas destinadas ao jogo Blox Fruits.</p>
+  </div>
+</footer>
+
+<script>
+  // reveal cards on scroll
+  const cards = document.querySelectorAll('.card');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        e.target.classList.add('in-view');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  cards.forEach((c, i) => {
+    c.style.transitionDelay = (i * 60) + 'ms';
+    io.observe(c);
+  });
+</script>
+
+</body>
+</html>
